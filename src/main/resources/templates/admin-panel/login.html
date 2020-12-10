@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>АСОЗ - Авторизація</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="../../static/resources/css/styles.css" th:href="@{/resources/css/styles.css}"
+          rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="dialog" class="mdl-dialog">
+    <form th:action="@{/login}" method="post">
+        <h3 class="mdl-dialog__title" style="text-align: center; font-size: 2rem;">Авторизація</h3>
+        <div class="mdl-dialog__content">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input th:class="${param.error} ? 'mdl-textfield\_\_input input-error' : 'mdl-textfield\_\_input'" name="username" type="text" id="login" autocomplete="off">
+                <label th:class="${param.error} ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'" for="login">Логін</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input th:class="${param.error} ? 'mdl-textfield\_\_input input-error' : 'mdl-textfield\_\_input'" name="password" type="password" id="password">
+                <label th:class="${param.error} ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'" for="password">Пароль</label>
+            </div>
+        </div>
+        <div class="btn-block">
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Увійти
+            </button>
+        </div>
+        <div th:if="${param.error}" class="error-block">
+            <p>Не правильний логін чи пароль!</p>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+</script>
+</body>
+</html>
