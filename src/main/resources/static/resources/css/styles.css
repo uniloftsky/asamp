@@ -93,3 +93,8 @@ body {
 .error-block p {
     margin: 0;
 }
+
+.mdl-layout__header-row {
+    padding: 0;
+    margin-bottom: 1em;
+}
