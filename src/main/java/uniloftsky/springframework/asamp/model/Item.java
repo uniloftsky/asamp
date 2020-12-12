@@ -20,6 +20,8 @@ public class Item extends BaseEntity {
 
     private Long count;
     private BigDecimal price;
+    private Integer inDiameter;
+    private Integer outDiameter;
     private String img;
 
 }

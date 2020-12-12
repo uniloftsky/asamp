@@ -1,5 +1,6 @@
 package uniloftsky.springframework.asamp.services;
 
+import org.springframework.stereotype.Service;
 import uniloftsky.springframework.asamp.model.ItemType;
 import uniloftsky.springframework.asamp.services.repositories.ItemTypeRepository;
 
@@ -7,6 +8,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@Service
 public class ItemTypeServiceImpl implements ItemTypeService {
 
     private final ItemTypeRepository itemTypeRepository;
