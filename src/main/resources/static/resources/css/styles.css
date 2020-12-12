@@ -94,7 +94,12 @@ body {
     margin: 0;
 }
 
-.mdl-layout__header-row {
-    padding: 0;
-    margin-bottom: 1em;
+
+.wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.agent-form {
+    display: flex;
+    flex-direction: column;
 }

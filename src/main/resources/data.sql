@@ -1,0 +1,3 @@
+INSERT INTO COUNTER_AGENT (email, first_name, last_name, middle_name, phone) VALUES ('mail@mail.com', 'Антон', 'Кулик', 'Олегович', '1234')
+INSERT INTO COUNTER_AGENT (email, first_name, last_name, middle_name, phone) VALUES ('mail@mail.com', 'Сергій', 'Чаюк', 'Олександрович', '1234')
+INSERT INTO COUNTER_AGENT (email, first_name, last_name, middle_name, phone) VALUES ('mail@mail.com', 'Олександр', 'Дученко', 'Кубоголовий', '1234')
