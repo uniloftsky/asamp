@@ -7,35 +7,65 @@
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" type="text/css" href="../../static/resources/polyfills/dialog/dialog-polyfill.css" th:href="@{/resources/polyfills/dialog/dialog-polyfill.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/resources/polyfills/dialog/dialog-polyfill.css"
+          th:href="@{/resources/polyfills/dialog/dialog-polyfill.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/resources/mdl/selectfield/mdl-selectfield.min.css"
+          th:href="@{/resources/mdl/selectfield/mdl-selectfield.min.css}">
     <link href="../../static/resources/css/styles.css" th:href="@{/resources/css/styles.css}"
           rel="stylesheet" type="text/css">
 </head>
 <body>
-<dialog id="create-dialog" class="mdl-dialog">
+<dialog id="create-dialog" class="mdl-dialog" style="width: 400px;">
     <form th:action="@{/editItem}" method="post" th:object="${item}">
-        <h4 class="mdl-dialog__title" style="font-size: 1rem; text-align: center;">Редагування контрагента</h4>
+        <h4 class="mdl-dialog__title" style="font-size: 1rem; text-align: center;">Редагування товару</h4>
         <div class="mdl-dialog__content">
             <input type="hidden" th:field="*{id}">
+            <div style="display: flex; align-items: center;">
+                <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+                    <select id="myselect" name="itemType" class="mdl-selectfield__select">
+                        <option th:each="itemType : ${itemTypes}" th:value="${itemType.id}" th:text="${itemType.typeName}" th:selected="${itemType.id.equals(item.itemType.id)}">
+                            option 1
+                        </option>
+                    </select>
+                    <label class="mdl-selectfield__label" for="myselect">Оберіть тип</label>
+                </div>
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
+                        type="button" id="type-create" style="height: 30px; width: 30px; min-width: 30px; margin-left: .5em; margin-right: -1em;"><i
+                        style="font-size: 20px;" class="material-icons">add</i></button>
+            </div>
+            <dialog id="item-type-create-dialog" class="mdl-dialog">
+                <form id="itemTypeForm" th:action="@{/itemTypeAdd}" method="post">
+                    <h4 class="mdl-dialog__title" style="font-size: 1.25rem; text-align: center;">Додавання
+                        нового типу</h4>
+                    <div class="mdl-dialog__content">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input type="hidden" th:value="${param.id}" name="itemId">
+                            <input class="mdl-textfield__input" type="text" name="typeName" id="typeName">
+                            <label class="mdl-textfield__label" for="typeName">Назва типу</label>
+                        </div>
+                    </div>
+                    <div class="mdl-dialog__actions">
+                        <button type="submit" class="mdl-button" th:formaction="@{/itemTypeAdd}">Зберегти</button>
+                        <button type="button" class="mdl-button close-in">Назад</button>
+                    </div>
+                </form>
+            </dialog>
+            <br>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="firstName" id="sample1" th:field="*{firstName}">
-                <label class="mdl-textfield__label" for="sample1">Ім'я</label>
+                <input class="mdl-textfield__input" type="text" name="itemName" id="itemName" th:field="*{itemName.itemName}">
+                <label class="mdl-textfield__label" for="itemName">Назва</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="lastName" id="sample2" th:field="*{lastName}">
-                <label class="mdl-textfield__label" for="sample2">Прізвище</label>
+                <input class="mdl-textfield__input" type="text" name="itemName" id="count" th:field="*{count}">
+                <label class="mdl-textfield__label" for="count">Кількість</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="middleName" id="sample3" th:field="*{middleName}">
-                <label class="mdl-textfield__label" for="sample3">По батькові</label>
+                <input class="mdl-textfield__input" type="text" name="itemName" id="inDiameter" th:field="*{inDiameter}">
+                <label class="mdl-textfield__label" for="inDiameter">Внутрішній діаметр(мм.)</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="phone" id="phone" th:field="*{phone}">
-                <label class="mdl-textfield__label" for="phone">Телефон</label>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="email" id="sample5" th:field="*{email}">
-                <label class="mdl-textfield__label" for="sample5">Електронна пошта</label>
+                <input class="mdl-textfield__input" type="text" name="itemName" id="outDiameter" th:field="*{outDiameter}">
+                <label class="mdl-textfield__label" for="outDiameter">Зовнішній діаметр(мм.)</label>
             </div>
         </div>
         <div class="mdl-dialog__actions">
@@ -47,17 +77,33 @@
 </dialog>
 <script>
     var dialog = document.querySelector('#create-dialog');
-    if (! dialog.showModal) {
+    if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
     }
     dialog.showModal();
-    dialog.querySelector('.close').addEventListener('click', function() {
+    dialog.querySelector('.close').addEventListener('click', function () {
         window.location.href = 'index';
     });
 </script>
-<script src="../../static/resources/polyfills/dialog/dialog-polyfill.js" th:src="@{/resources/polyfills/dialog/dialog-polyfill.js}"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" type="text/javascript"></script>
+<script>
+    var dialog1 = document.querySelector('#item-type-create-dialog');
+    var showDialogButton1 = document.querySelector('#type-create');
+    if (!dialog1.showModal) {
+        dialogPolyfill.registerDialog(dialog1);
+    }
+    showDialogButton1.addEventListener('click', function () {
+        dialog1.showModal();
+    });
+    dialog1.querySelector('.close-in').addEventListener('click', function () {
+        dialog1.close();
+    });
+</script>
+<script src="../../static/resources/polyfills/dialog/dialog-polyfill.js"
+        th:src="@{/resources/polyfills/dialog/dialog-polyfill.js}"></script>
 <script th:src="@{/resources/js/jquery.maskedinput.min.js}"
         src="../../static/resources/js/jquery.maskedinput.min.js"></script>
+<script src="../../static/resources/mdl/selectfield/mdl-selectfield.min.js"
+        th:src="@{/resources/mdl/selectfield/mdl-selectfield.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" type="text/javascript"></script>
 </body>
 </html>

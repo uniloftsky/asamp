@@ -94,7 +94,6 @@ body {
     margin: 0;
 }
 
-
 .wrap {
     max-width: 1000px;
     margin: 0 auto;
@@ -102,4 +101,8 @@ body {
 .agent-form {
     display: flex;
     flex-direction: column;
+}
+
+.mdl-button {
+    margin: 0;
 }

@@ -13,7 +13,7 @@
           rel="stylesheet" type="text/css">
 </head>
 <body>
-<div id="dialog" class="mdl-dialog">
+<dialog id="login-dialog" class="mdl-dialog">
     <form th:action="@{/login}" method="post">
         <h3 class="mdl-dialog__title" style="text-align: center; font-size: 2rem;">Авторизація</h3>
         <div class="mdl-dialog__content">
@@ -34,8 +34,20 @@
             <p>Не правильний логін чи пароль!</p>
         </div>
     </form>
-</div>
-<script type="text/javascript">
+</dialog>
+<script>
+    var dialog = document.querySelector('#login-dialog');
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+    dialog.querySelector('.close').addEventListener('click', function() {
+        window.location.href = 'index';
+    });
 </script>
+<script src="../../static/resources/polyfills/dialog/dialog-polyfill.js" th:src="@{/resources/polyfills/dialog/dialog-polyfill.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" type="text/javascript"></script>
+<script th:src="@{/resources/js/jquery.maskedinput.min.js}"
+        src="../../static/resources/js/jquery.maskedinput.min.js"></script>
 </body>
 </html>

@@ -35,8 +35,9 @@
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">
             <form id="logout-form" th:action="@{/logout}" method="post">
-            <a href="javascript:{}" onclick="document.getElementById('logout-form').submit(); return false;">Вийти</a>
-        </form>
+                <a href="javascript:{}"
+                   onclick="document.getElementById('logout-form').submit(); return false;">Вийти</a>
+            </form>
         </span>
     </div>
     <main class="mdl-layout__content">
@@ -75,7 +76,8 @@
                             </div>
                         </form>
                     </dialog>
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="margin: 2em auto 0; z-index: 0;">
+                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
+                           style="margin: 2em auto 0; z-index: 0;">
                         <thead>
                         <tr>
                             <th class="mdl-data-table__cell--non-numeric">Номер</th>
@@ -102,9 +104,10 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="add-btn" style="margin-top: -1.25em; z-index: 1; display: flex;">
+                    <div class="add-btn" style="margin-top: -1.25em; z-index: 1; display: flex; justify-content: center;">
                         <button id="add-agent"
-                                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="margin-bottom: 0; margin-left: auto; height: 35px; min-width: 35px; width: 35px;">
+                                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+                                style="margin-bottom: 0; height: 35px; min-width: 35px; width: 35px;">
                             <i class="material-icons" style="font-size: 20px;">add</i>
                         </button>
                     </div>
@@ -115,11 +118,15 @@
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
             <div class="page-content">
                 <div class="wrap">
-                    <dialog id="item-create-dialog" class="mdl-dialog" style="width: 600px;">
-                        <form th:action="@{/itemAdd}" method="post">
-                            <h4 class="mdl-dialog__title" style="font-size: 1.25rem; text-align: center;">Додавання нового типу</h4>
+                    <dialog id="item-create-dialog" class="mdl-dialog">
+                        <form th:action="@{/itemTypeAdd}" method="post">
+                            <h4 class="mdl-dialog__title" style="font-size: 1.25rem; text-align: center;">Додавання
+                                нового типу</h4>
                             <div class="mdl-dialog__content">
-
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" name="typeName" id="typeName">
+                                    <label class="mdl-textfield__label" for="typeName">Назва типу</label>
+                                </div>
                             </div>
                             <div class="mdl-dialog__actions">
                                 <button type="submit" class="mdl-button">Зберегти</button>
@@ -127,14 +134,14 @@
                             </div>
                         </form>
                     </dialog>
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="margin: 2em auto 0; z-index: 0;">
+                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
+                           style="margin: 2em auto 0; z-index: 0;">
                         <thead>
                         <tr>
                             <th class="mdl-data-table__cell--non-numeric">Номер</th>
                             <th>Назва</th>
                             <th>Тип</th>
                             <th>Кількість</th>
-                            <th>Ціна(грн.)</th>
                             <th>Внутрішній діаметр</th>
                             <th>Зовнішній діаметр</th>
                             <th>Редагувати</th>
@@ -148,17 +155,18 @@
                             <td th:text="${item.itemName.itemName}">25</td>
                             <td th:text="${item.itemType.typeName}">$2.90</td>
                             <td th:text="${item.count}">$2.90</td>
-                            <td th:text="${item.price}">1234</td>
                             <td th:text="${item.inDiameter}">12</td>
                             <td th:text="${item.outDiameter}">32</td>
                             <td><a th:href="@{/editItem(id=${item.id})}">Редагувати</a></td>
                             <td><a th:href="@{/deleteItem(id=${item.id})}">Видалити</a></td>
                         </tr>
                         </tbody>
+
                     </table>
-                    <div class="add-btn" style="display: flex; justify-content: center; margin-top: 1.5em;">
-                        <button id="add-item" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Додати тип</button>
-                    </div>
+                    <button id="add-item" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                            style="margin-top: 2em;">
+                        Додати новий тип
+                    </button>
                 </div>
             </div>
         </section>

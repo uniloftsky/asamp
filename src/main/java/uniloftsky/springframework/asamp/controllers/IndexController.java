@@ -110,13 +110,21 @@ public class IndexController {
     public String editAgentInit(@RequestParam("id") String id, Model model) {
         CounterAgent agent = counterAgentService.findById(Long.valueOf(id));
         model.addAttribute("agent", agent);
-        return "edit-agent";
+        return "admin-panel/edit-agent";
     }
 
     @PostMapping("editAgent")
     public String editAgentProcess(@ModelAttribute CounterAgent agent) {
         counterAgentService.save(agent);
         return "redirect:/index";
+    }
+
+    @PostMapping("itemTypeAdd")
+    public String itemTypeAdd(@RequestParam("typeName") String typeName, @RequestParam("itemId") String itemId, Model model) {
+        ItemType itemType = new ItemType();
+        itemType.setTypeName(typeName);
+        itemTypeService.save(itemType);
+        return "redirect:/editItem?id=" + itemId;
     }
 
 }
