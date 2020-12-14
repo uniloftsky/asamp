@@ -61,7 +61,7 @@
                         </form>
                     </dialog>
                     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
-                           style="margin: 2em auto 0; z-index: 0;">
+                           style="margin: 2em auto 0; z-index: 0; max-width: 999px;">
                         <thead>
                         <tr>
                             <th class="mdl-data-table__cell--non-numeric">Номер</th>
@@ -71,6 +71,8 @@
                             <th>Сума</th>
                             <th>Контрагент</th>
                             <th>Товар</th>
+                            <th>Редагувати</th>
+                            <th>Видалити</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -80,8 +82,9 @@
                             <td th:text="${itemAdd.date}">25</td>
                             <td th:text="${itemAdd.count}">$2.90</td>
                             <td th:text="${itemAdd.price}">$2.90</td>
-                            <td th:text="${itemAdd.count * itemAdd.count}">12</td>
+                            <td th:text="${itemAdd.count * itemAdd.price}">12</td>
                             <td th:text="${itemAdd.counterAgent.firstName + ' ' + itemAdd.counterAgent.lastName}">32</td>
+                            <td th:text="${itemAdd.itemName.itemName + '  (' + itemAdd.itemType.typeName + ')'}"></td>
                             <td><a th:href="@{/editItem(id=${itemAdd.id})}">Редагувати</a></td>
                             <td><a th:href="@{/deleteItem(id=${itemAdd.id})}">Видалити</a></td>
                         </tr>

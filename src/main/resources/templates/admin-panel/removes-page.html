@@ -65,26 +65,28 @@
                         <thead>
                         <tr>
                             <th class="mdl-data-table__cell--non-numeric">Номер</th>
-                            <th>Назва</th>
-                            <th>Тип</th>
+                            <th>Дата</th>
                             <th>Кількість</th>
-                            <th>Внутрішній діаметр</th>
-                            <th>Зовнішній діаметр</th>
+                            <th>Ціна</th>
+                            <th>Сума</th>
+                            <th>Контрагент</th>
+                            <th>Товар</th>
                             <th>Редагувати</th>
                             <th>Видалити</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="item : ${items}">
-                            <td class="mdl-data-table__cell--non-numeric" th:text="${item.id}">Acrylic (Transparent)
+                        <tr th:each="itemRemove : ${itemRemoves}">
+                            <td class="mdl-data-table__cell--non-numeric" th:text="${itemRemove.id}">Acrylic (Transparent)
                             </td>
-                            <td th:text="${item.itemName.itemName}">25</td>
-                            <td th:text="${item.itemType.typeName}">$2.90</td>
-                            <td th:text="${item.count}">$2.90</td>
-                            <td th:text="${item.inDiameter}">12</td>
-                            <td th:text="${item.outDiameter}">32</td>
-                            <td><a th:href="@{/editItem(id=${item.id})}">Редагувати</a></td>
-                            <td><a th:href="@{/deleteItem(id=${item.id})}">Видалити</a></td>
+                            <td th:text="${itemRemove.date}">25</td>
+                            <td th:text="${itemRemove.count}">$2.90</td>
+                            <td th:text="${itemRemove.price}">$2.90</td>
+                            <td th:text="${itemRemove.count * itemRemove.price}">12</td>
+                            <td th:text="${itemRemove.counterAgent.firstName + ' ' + itemRemove.counterAgent.lastName}">32</td>
+                            <td th:text="${itemRemove.itemName.itemName + '  (' + itemRemove.itemType.typeName + ')'}"></td>
+                            <td><a th:href="@{/editItem(id=${itemRemove.id})}">Редагувати</a></td>
+                            <td><a th:href="@{/deleteItem(id=${itemRemove.id})}">Видалити</a></td>
                         </tr>
                         </tbody>
 

@@ -18,5 +18,10 @@ INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) 
 INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (2, 17, 35, 1, 5)
 INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (2, 17, 35, 1, 5)
 
-INSERT INTO ITEM_ADD(count, date, price, counter_agent_id, item_name_id) VALUES (2, '2020-12-13', 56, 1, 1)
-INSERT INTO ITEM_ADD(count, date, price, counter_agent_id, item_name_id) VALUES (12, '2020-')
+INSERT INTO ITEM_ADD (count, date, price, counter_agent_id, item_name_id, item_type_id) VALUES (2, '2020-12-13', 56, 1, 1, 1)
+INSERT INTO ITEM_ADD (count, date, price, counter_agent_id, item_name_id, item_type_id) VALUES (12, '2020-11-14', 210, 2, 1, 2)
+INSERT INTO ITEM_ADD (count, date, price, counter_agent_id, item_name_id, item_type_id) VALUES (50, '2020-11-20', 189, 3, 1, 3)
+
+INSERT INTO ITEM_REMOVE (count, date, price, counter_agent_id, item_name_id, item_type_id) VALUES (5, '2020-11-07', 228, 1, 1, 2)
+INSERT INTO ITEM_REMOVE (count, date, price, counter_agent_id, item_name_id, item_type_id) VALUES (17, '2020-11-01', 12, 2, 1, 4)
+INSERT INTO ITEM_REMOVE (count, date, price, counter_agent_id, item_name_id, item_type_id) VALUES (41, '2020-11-18', 15, 3, 1, 5)

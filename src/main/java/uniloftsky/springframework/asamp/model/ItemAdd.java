@@ -22,6 +22,9 @@ public class ItemAdd extends BaseEntity {
     @ManyToOne
     private ItemName itemName;
 
+    @ManyToOne
+    private ItemType itemType;
+
     private LocalDate date;
 
 }
