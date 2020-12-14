@@ -6,18 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import uniloftsky.springframework.asamp.comparators.CounterAgentAscComparatorById;
-import uniloftsky.springframework.asamp.comparators.ItemAscComparatorById;
-import uniloftsky.springframework.asamp.comparators.ItemNameAscComparatorById;
-import uniloftsky.springframework.asamp.comparators.ItemTypeAscComparatorById;
-import uniloftsky.springframework.asamp.model.CounterAgent;
-import uniloftsky.springframework.asamp.model.Item;
-import uniloftsky.springframework.asamp.model.ItemName;
-import uniloftsky.springframework.asamp.model.ItemType;
-import uniloftsky.springframework.asamp.services.CounterAgentService;
-import uniloftsky.springframework.asamp.services.ItemNameService;
-import uniloftsky.springframework.asamp.services.ItemService;
-import uniloftsky.springframework.asamp.services.ItemTypeService;
+import uniloftsky.springframework.asamp.comparators.*;
+import uniloftsky.springframework.asamp.model.*;
+import uniloftsky.springframework.asamp.services.*;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -30,17 +21,36 @@ public class IndexController {
     private final ItemNameService itemNameService;
     private final ItemService itemService;
     private final ItemTypeService itemTypeService;
+    private final ItemAddService itemAddService;
+    private final ItemRemoveService itemRemoveService;
 
-    public IndexController(CounterAgentService counterAgentService, ItemNameService itemNameService, ItemService itemService, ItemTypeService itemTypeService) {
+    public IndexController(CounterAgentService counterAgentService, ItemNameService itemNameService, ItemService itemService, ItemTypeService itemTypeService, ItemAddService itemAddService, ItemRemoveService itemRemoveService) {
         this.counterAgentService = counterAgentService;
         this.itemNameService = itemNameService;
         this.itemService = itemService;
         this.itemTypeService = itemTypeService;
+        this.itemAddService = itemAddService;
+        this.itemRemoveService = itemRemoveService;
     }
 
     @GetMapping({"", "/index", "index"})
     public String getIndexPage() {
         return "admin-panel/index";
+    }
+
+    @GetMapping({"items", "/items"})
+    public String getItemsPage() {
+        return "admin-panel/items-page";
+    }
+
+    @GetMapping({"adds", "/adds"})
+    public String getAddsPage() {
+        return "admin-panel/adds-page";
+    }
+
+    @GetMapping({"removes", "/removes"})
+    public String getRemovePage() {
+        return "admin-panel/removes-page";
     }
 
     @ModelAttribute("itemNames")
@@ -59,6 +69,22 @@ public class IndexController {
         return itemTypes;
     }
 
+    @ModelAttribute("itemAdds")
+    public Set<ItemAdd> getItemAddsList() {
+        Comparator<ItemAdd> comparator = new ItemAddsAscComparatorById();
+        TreeSet<ItemAdd> itemAdds = new TreeSet<>(comparator);
+        itemAddService.findAll().iterator().forEachRemaining(itemAdds::add);
+        return itemAdds;
+    }
+
+    @ModelAttribute("itemRemoves")
+    public Set<ItemRemove> getItemRemovesList() {
+        Comparator<ItemRemove> comparator = new ItemRemovesAscComparatorById();
+        TreeSet<ItemRemove> itemRemoves = new TreeSet<>(comparator);
+        itemRemoveService.findAll().iterator().forEachRemaining(itemRemoves::add);
+        return itemRemoves;
+    }
+
     @ModelAttribute("items")
     public Set<Item> getItemsList() {
         Comparator<Item> comparator = new ItemAscComparatorById();
@@ -74,10 +100,16 @@ public class IndexController {
         return "admin-panel/edit-item";
     }
 
+    @PostMapping("editItem")
+    public String editItemProcess(@ModelAttribute("item") Item item) {
+        itemService.save(item);
+        return "redirect:/items";
+    }
+
     @GetMapping("deleteItem")
     public String deleteItem(@RequestParam("id") String id) {
         itemService.delete(itemService.findById(Long.valueOf(id)));
-        return "redirect:/index";
+        return "redirect:/items";
     }
 
     @ModelAttribute("agents")

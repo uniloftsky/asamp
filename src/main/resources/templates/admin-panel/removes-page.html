@@ -26,10 +26,10 @@
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-            <a th:href="@{/index}" class="mdl-layout__tab is-active">Контрагенти</a>
+            <a th:href="@{/index}" class="mdl-layout__tab">Контрагенти</a>
             <a th:href="@{/items}" class="mdl-layout__tab">Товари</a>
             <a th:href="@{/adds}" class="mdl-layout__tab">Операції додавання</a>
-            <a th:href="@{/removes}" class="mdl-layout__tab">Операції відпускання</a>
+            <a th:href="@{/removes}" class="mdl-layout__tab is-active">Операції відпускання</a>
         </div>
     </header>
     <div class="mdl-layout__drawer">
@@ -41,81 +41,7 @@
         </span>
     </div>
     <main class="mdl-layout__content">
-        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-            <div class="page-content">
-                <div class="wrap">
-                    <dialog id="agent-create-dialog" class="mdl-dialog">
-                        <form th:action="@{/agentAdd}" method="post">
-                            <h4 class="mdl-dialog__title" style="font-size: 1.25rem; text-align: center;">Додавання
-                                контрагента</h4>
-                            <div class="mdl-dialog__content">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="firstName" id="sample1">
-                                    <label class="mdl-textfield__label" for="sample1">Ім'я</label>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="lastName" id="sample2">
-                                    <label class="mdl-textfield__label" for="sample2">Прізвище</label>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="middleName" id="sample3">
-                                    <label class="mdl-textfield__label" for="sample3">По батькові</label>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="phone" id="phone">
-                                    <label class="mdl-textfield__label" for="phone">Телефон</label>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="email" id="sample5">
-                                    <label class="mdl-textfield__label" for="sample5">Електронна пошта</label>
-                                </div>
-                            </div>
-                            <div class="mdl-dialog__actions">
-                                <button type="submit" class="mdl-button">Зберегти</button>
-                                <button type="button" class="mdl-button close">Назад</button>
-                            </div>
-                        </form>
-                    </dialog>
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
-                           style="margin: 2em auto 0; z-index: 0;">
-                        <thead>
-                        <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Номер</th>
-                            <th>Ім'я</th>
-                            <th>Прізвище</th>
-                            <th>По батькові</th>
-                            <th>Телефон</th>
-                            <th>E-mail</th>
-                            <th>Редагувати</th>
-                            <th>Видалити</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="agent : ${agents}">
-                            <td class="mdl-data-table__cell--non-numeric" th:text="${agent.id}">Acrylic (Transparent)
-                            </td>
-                            <td th:text="${agent.firstName}">25</td>
-                            <td th:text="${agent.lastName}">$2.90</td>
-                            <td th:text="${agent.middleName}">$2.90</td>
-                            <td th:text="${agent.phone}">1234</td>
-                            <td th:text="${agent.email}">email</td>
-                            <td><a th:href="@{/editAgent(id=${agent.id})}">Редагувати</a></td>
-                            <td><a th:href="@{/deleteAgent(id=${agent.id})}">Видалити</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="add-btn" style="margin-top: -1.25em; z-index: 1; display: flex; justify-content: center;">
-                        <button id="add-agent"
-                                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
-                                style="margin-bottom: 0; height: 35px; min-width: 35px; width: 35px;">
-                            <i class="material-icons" style="font-size: 20px;">add</i>
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+        <section>
             <div class="page-content">
                 <div class="wrap">
                     <dialog id="item-create-dialog" class="mdl-dialog">
@@ -174,19 +100,6 @@
         </section>
     </main>
 </div>
-<script>
-    var dialog = document.querySelector('#agent-create-dialog');
-    var showDialogButton = document.querySelector('#add-agent');
-    if (!dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    showDialogButton.addEventListener('click', function () {
-        dialog.showModal();
-    });
-    dialog.querySelector('.close').addEventListener('click', function () {
-        dialog.close();
-    });
-</script>
 <script>
     var dialog1 = document.querySelector('#item-create-dialog');
     var showDialogButton1 = document.querySelector('#add-item');

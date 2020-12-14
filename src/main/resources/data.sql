@@ -17,3 +17,6 @@ INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) 
 INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (8, 12, 37, 1, 2)
 INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (2, 17, 35, 1, 5)
 INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (2, 17, 35, 1, 5)
+
+INSERT INTO ITEM_ADD(count, date, price, counter_agent_id, item_name_id) VALUES (2, '2020-12-13', 56, 1, 1)
+INSERT INTO ITEM_ADD(count, date, price, counter_agent_id, item_name_id) VALUES (12, '2020-')

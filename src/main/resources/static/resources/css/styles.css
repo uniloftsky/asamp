@@ -68,6 +68,7 @@ body {
 .btn-block {
     display: flex;
     justify-content: center;
+    margin-bottom: 2em;
 }
 
 .mdl-button {
