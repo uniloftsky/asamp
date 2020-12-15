@@ -74,7 +74,7 @@
         </div>
         <div class="mdl-dialog__actions">
             <button type="submit" class="mdl-button" form="editItemForm" >Зберегти</button>
-            <button type="button" class="mdl-button close" th:href="@{/index}">Назад</button>
+            <button type="button" class="mdl-button close" th:href="@{/items}">Назад</button>
         </div>
     </form>
 </dialog>
@@ -85,7 +85,7 @@
     }
     dialog.showModal();
     dialog.querySelector('.close').addEventListener('click', function () {
-        window.location.href = 'index';
+        window.location.href = 'items';
     });
 </script>
 <script>

@@ -72,7 +72,6 @@
                             <th>Контрагент</th>
                             <th>Товар</th>
                             <th>Редагувати</th>
-                            <th>Видалити</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -85,20 +84,12 @@
                             <td th:text="${itemRemove.count * itemRemove.price}">12</td>
                             <td th:text="${itemRemove.counterAgent.firstName + ' ' + itemRemove.counterAgent.lastName}">32</td>
                             <td th:text="${itemRemove.itemName.itemName + '  (' + itemRemove.itemType.typeName + ')'}"></td>
-                            <td><a th:href="@{/editItem(id=${itemRemove.id})}">Редагувати</a></td>
-                            <td><a th:href="@{/deleteItem(id=${itemRemove.id})}">Видалити</a></td>
+                            <td><a th:href="@{/editItemRemove(id=${itemRemove.id})}">Редагувати</a></td>
                         </tr>
                         </tbody>
-
                     </table>
                 </div>
             </div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-            <div class="page-content"><p>додавання</p></div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-4">
-            <div class="page-content"><p>відпускання</p></div>
         </section>
     </main>
 </div>

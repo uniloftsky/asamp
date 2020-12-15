@@ -40,26 +40,61 @@
             </form>
         </span>
     </div>
+    <dialog id="item-add-create" class="mdl-dialog">
+        <form th:action="@{/itemAddCreate}" method="post">
+            <h4 class="mdl-dialog__title" style="font-size: 1rem; text-align: center;">Редагування операції
+                прибуття</h4>
+            <div class="mdl-dialog__content">
+                <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+                    <select id="itemNameSelect" name="itemName" class="mdl-selectfield__select">
+                        <option th:each="itemName : ${itemNames}" th:value="${itemName.id}"
+                                th:text="${itemName.itemName}">
+                            option 1
+                        </option>
+                    </select>
+                    <label class="mdl-selectfield__label" for="itemNameSelect">Назва</label>
+                </div>
+                <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+                    <select id="myselect" name="itemType" class="mdl-selectfield__select">
+                        <option th:each="itemType : ${itemTypes}" th:value="${itemType.id}"
+                                th:text="${itemType.typeName}">
+                            option 1
+                        </option>
+                    </select>
+                    <label class="mdl-selectfield__label" for="myselect">Оберіть тип</label>
+                </div>
+                <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+                    <select id="counterAgentSelect" name="counterAgent" class="mdl-selectfield__select">
+                        <option th:each="agent : ${agents}" th:value="${agent.id}"
+                                th:text="${agent.firstName + ' ' + agent.lastName}">
+                            option 1
+                        </option>
+                    </select>
+                    <label class="mdl-selectfield__label" for="counterAgentSelect">Оберіть контрагента</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="number" name="count" id="count">
+                    <label class="mdl-textfield__label" for="count">Кількість</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="number" name="price" id="price">
+                    <label class="mdl-textfield__label" for="price">Ціна</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="date" name="date" id="date" placeholder="yyyy-mm-dd">
+                    <label class="mdl-textfield__label" for="date">Дата</label>
+                </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="submit" class="mdl-button">Зберегти</button>
+                <button type="button" class="mdl-button close" th:href="@{/adds}">Назад</button>
+            </div>
+        </form>
+    </dialog>
     <main class="mdl-layout__content">
         <section>
             <div class="page-content">
                 <div class="wrap">
-                    <dialog id="item-create-dialog" class="mdl-dialog">
-                        <form th:action="@{/itemTypeAdd}" method="post">
-                            <h4 class="mdl-dialog__title" style="font-size: 1.25rem; text-align: center;">Додавання
-                                нового типу</h4>
-                            <div class="mdl-dialog__content">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="typeName" id="typeName">
-                                    <label class="mdl-textfield__label" for="typeName">Назва типу</label>
-                                </div>
-                            </div>
-                            <div class="mdl-dialog__actions">
-                                <button type="submit" class="mdl-button">Зберегти</button>
-                                <button type="button" class="mdl-button close">Назад</button>
-                            </div>
-                        </form>
-                    </dialog>
                     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
                            style="margin: 2em auto 0; z-index: 0; max-width: 999px;">
                         <thead>
@@ -72,7 +107,6 @@
                             <th>Контрагент</th>
                             <th>Товар</th>
                             <th>Редагувати</th>
-                            <th>Видалити</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -83,25 +117,39 @@
                             <td th:text="${itemAdd.count}">$2.90</td>
                             <td th:text="${itemAdd.price}">$2.90</td>
                             <td th:text="${itemAdd.count * itemAdd.price}">12</td>
-                            <td th:text="${itemAdd.counterAgent.firstName + ' ' + itemAdd.counterAgent.lastName}">32</td>
+                            <td th:text="${itemAdd.counterAgent.firstName + ' ' + itemAdd.counterAgent.lastName}">32
+                            </td>
                             <td th:text="${itemAdd.itemName.itemName + '  (' + itemAdd.itemType.typeName + ')'}"></td>
-                            <td><a th:href="@{/editItem(id=${itemAdd.id})}">Редагувати</a></td>
-                            <td><a th:href="@{/deleteItem(id=${itemAdd.id})}">Видалити</a></td>
+                            <td><a th:href="@{/editItemAdd(id=${itemAdd.id})}">Редагувати</a></td>
                         </tr>
                         </tbody>
-
                     </table>
+                    <div class="add-btn"
+                         style="margin-top: -1.25em; z-index: 1; display: flex; justify-content: center;">
+                        <button id="add-item-add"
+                                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+                                style="margin-bottom: 0; height: 35px; min-width: 35px; width: 35px;">
+                            <i class="material-icons" style="font-size: 20px;">add</i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-            <div class="page-content"><p>додавання</p></div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-4">
-            <div class="page-content"><p>відпускання</p></div>
-        </section>
     </main>
 </div>
+<script>
+    var dialog = document.querySelector('#item-add-create');
+    var showDialogButton = document.querySelector('#add-item-add');
+    if (!dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function () {
+        dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function () {
+        dialog.close();
+    });
+</script>
 <script>
     var dialog1 = document.querySelector('#item-create-dialog');
     var showDialogButton1 = document.querySelector('#add-item');

@@ -159,4 +159,11 @@ public class IndexController {
         return "redirect:/editItem?id=" + itemId;
     }
 
+    @GetMapping("editItemAdd")
+    public String editItemAddInit(@RequestParam("id") String itemAddId, Model model) {
+        ItemAdd itemAdd = itemAddService.findById(Long.valueOf(itemAddId));
+        model.addAttribute("itemAdd", itemAdd);
+        return "admin-panel/edit-itemAdd";
+    }
+
 }

@@ -115,63 +115,6 @@
 
             </div>
         </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-            <div class="page-content">
-                <div class="wrap">
-                    <dialog id="item-create-dialog" class="mdl-dialog">
-                        <form th:action="@{/itemTypeAdd}" method="post">
-                            <h4 class="mdl-dialog__title" style="font-size: 1.25rem; text-align: center;">Додавання
-                                нового типу</h4>
-                            <div class="mdl-dialog__content">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="typeName" id="typeName">
-                                    <label class="mdl-textfield__label" for="typeName">Назва типу</label>
-                                </div>
-                            </div>
-                            <div class="mdl-dialog__actions">
-                                <button type="submit" class="mdl-button">Зберегти</button>
-                                <button type="button" class="mdl-button close">Назад</button>
-                            </div>
-                        </form>
-                    </dialog>
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
-                           style="margin: 2em auto 0; z-index: 0;">
-                        <thead>
-                        <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Номер</th>
-                            <th>Назва</th>
-                            <th>Тип</th>
-                            <th>Кількість</th>
-                            <th>Внутрішній діаметр</th>
-                            <th>Зовнішній діаметр</th>
-                            <th>Редагувати</th>
-                            <th>Видалити</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="item : ${items}">
-                            <td class="mdl-data-table__cell--non-numeric" th:text="${item.id}">Acrylic (Transparent)
-                            </td>
-                            <td th:text="${item.itemName.itemName}">25</td>
-                            <td th:text="${item.itemType.typeName}">$2.90</td>
-                            <td th:text="${item.count}">$2.90</td>
-                            <td th:text="${item.inDiameter}">12</td>
-                            <td th:text="${item.outDiameter}">32</td>
-                            <td><a th:href="@{/editItem(id=${item.id})}">Редагувати</a></td>
-                            <td><a th:href="@{/deleteItem(id=${item.id})}">Видалити</a></td>
-                        </tr>
-                        </tbody>
-
-                    </table>
-                </div>
-            </div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-            <div class="page-content"><p>додавання</p></div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-4">
-            <div class="page-content"><p>відпускання</p></div>
-        </section>
     </main>
 </div>
 <script>
