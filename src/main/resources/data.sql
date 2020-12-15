@@ -13,9 +13,7 @@ INSERT INTO ITEM_TYPE (type_name) VALUES ('Закріплювальний кул
 
 INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (5, 20, 40, 1, 2)
 INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (12, 12, 28, 1, 3)
-INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (24, 15, 32, 1, 3)
 INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (8, 12, 37, 1, 2)
-INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (2, 17, 35, 1, 5)
 INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (2, 17, 35, 1, 5)
 
 INSERT INTO ITEM_ADD (count, date, price, counter_agent_id, item_name_id, item_type_id) VALUES (2, '2020-12-13', 56, 1, 1, 1)

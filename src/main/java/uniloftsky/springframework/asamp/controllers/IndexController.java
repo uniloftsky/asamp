@@ -10,6 +10,9 @@ import uniloftsky.springframework.asamp.comparators.*;
 import uniloftsky.springframework.asamp.model.*;
 import uniloftsky.springframework.asamp.services.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -93,6 +96,11 @@ public class IndexController {
         return items;
     }
 
+    @ModelAttribute("currentDate")
+    public LocalDate getCurrentDate() {
+        return LocalDate.now();
+    }
+
     @GetMapping("editItem")
     public String editItemInit(@RequestParam("id") String id, Model model) {
         Item item = itemService.findById(Long.valueOf(id));
@@ -166,4 +174,27 @@ public class IndexController {
         return "admin-panel/edit-itemAdd";
     }
 
+    @PostMapping("editItemAdd")
+    public String editItemAddProcess(@ModelAttribute ItemAdd itemAdd, @RequestParam("dateField") String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateAdd = LocalDate.parse(date, formatter);
+        itemAdd.setDate(dateAdd);
+        itemAddService.save(itemAdd);
+        return "redirect:/adds";
+    }
+
+    @PostMapping("itemAddCreate")
+    public String itemAddCreate(@RequestParam("itemName") String itemNameId, @RequestParam("itemType") String itemTypeId, @RequestParam("counterAgent") Long agentId, @RequestParam("count") String count, @RequestParam("price") String price, @RequestParam("date") String date) {
+        ItemAdd itemAdd = new ItemAdd();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateAdd = LocalDate.parse(date, formatter);
+        itemAdd.setCount(Long.valueOf(count));
+        itemAdd.setCounterAgent(counterAgentService.findById(agentId));
+        itemAdd.setPrice(new BigDecimal(price));
+        itemAdd.setItemName(itemNameService.findById(Long.valueOf(itemNameId)));
+        itemAdd.setItemType(itemTypeService.findById(Long.valueOf(itemTypeId)));
+        itemAdd.setDate(dateAdd);
+        itemAddService.save(itemAdd);
+        return "redirect:/adds";
+    }
 }

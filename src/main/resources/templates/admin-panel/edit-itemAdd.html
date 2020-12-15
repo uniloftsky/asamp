@@ -57,8 +57,7 @@
                 <label class="mdl-textfield__label" for="price">Ціна</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="date" name="date" id="date"
-                       th:field="*{date}" placeholder="yyyy-mm-dd">
+                <input class="mdl-textfield__input" type="date" name="dateField" id="date" th:value="${currentDate}">
                 <label class="mdl-textfield__label" for="date">Дата</label>
             </div>
         </div>
