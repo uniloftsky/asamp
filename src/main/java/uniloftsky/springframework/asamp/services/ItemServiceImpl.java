@@ -42,4 +42,9 @@ public class ItemServiceImpl implements ItemService {
     public Item save(Item item) {
         return itemRepository.save(item);
     }
+
+    @Override
+    public Item findByItemType_TypeName(String itemType) {
+        return itemRepository.findByItemType_TypeName(itemType);
+    }
 }

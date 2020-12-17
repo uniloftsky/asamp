@@ -9,6 +9,7 @@ public interface ItemAddService {
     Set<ItemAdd> findAll();
     ItemAdd findById(Long id);
     void delete(ItemAdd itemAdd);
+    ItemAdd save(ItemAdd itemAdd, Long itemTypeId);
     ItemAdd save(ItemAdd itemAdd);
 
 }

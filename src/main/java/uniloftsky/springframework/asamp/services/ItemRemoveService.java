@@ -9,6 +9,7 @@ public interface ItemRemoveService {
     Set<ItemRemove> findAll();
     ItemRemove findById(Long id);
     void delete(ItemRemove itemRemove);
+    ItemRemove save(ItemRemove itemRemove, Long itemTypeId);
     ItemRemove save(ItemRemove itemRemove);
 
 }

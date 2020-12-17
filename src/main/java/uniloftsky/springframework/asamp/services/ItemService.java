@@ -10,5 +10,6 @@ public interface ItemService {
     Item findById(Long id);
     void delete(Item item);
     Item save(Item item);
+    Item findByItemType_TypeName(String itemType);
 
 }

@@ -36,6 +36,8 @@ public class IndexController {
         this.itemRemoveService = itemRemoveService;
     }
 
+    private DateTimeFormatter formatter;
+
     @GetMapping({"", "/index", "index"})
     public String getIndexPage() {
         return "admin-panel/index";
@@ -176,7 +178,7 @@ public class IndexController {
 
     @PostMapping("editItemAdd")
     public String editItemAddProcess(@ModelAttribute ItemAdd itemAdd, @RequestParam("dateField") String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateAdd = LocalDate.parse(date, formatter);
         itemAdd.setDate(dateAdd);
         itemAddService.save(itemAdd);
@@ -186,7 +188,7 @@ public class IndexController {
     @PostMapping("itemAddCreate")
     public String itemAddCreate(@RequestParam("itemName") String itemNameId, @RequestParam("itemType") String itemTypeId, @RequestParam("counterAgent") Long agentId, @RequestParam("count") String count, @RequestParam("price") String price, @RequestParam("date") String date) {
         ItemAdd itemAdd = new ItemAdd();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateAdd = LocalDate.parse(date, formatter);
         itemAdd.setCount(Long.valueOf(count));
         itemAdd.setCounterAgent(counterAgentService.findById(agentId));
@@ -194,7 +196,38 @@ public class IndexController {
         itemAdd.setItemName(itemNameService.findById(Long.valueOf(itemNameId)));
         itemAdd.setItemType(itemTypeService.findById(Long.valueOf(itemTypeId)));
         itemAdd.setDate(dateAdd);
-        itemAddService.save(itemAdd);
+        itemAddService.save(itemAdd, Long.valueOf(itemTypeId));
         return "redirect:/adds";
     }
+
+    @GetMapping("editItemRemove")
+    public String editItemRemoveInit(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("itemRemove", itemRemoveService.findById(id));
+        return "admin-panel/edit-itemRemove";
+    }
+
+    @PostMapping("editItemRemove")
+    public String editItemRemoveProcess(@ModelAttribute("itemRemove") ItemRemove itemRemove, @RequestParam("dateField") String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateAdd = LocalDate.parse(date, formatter);
+        itemRemove.setDate(dateAdd);
+        itemRemoveService.save(itemRemove);
+        return "redirect:/removes";
+    }
+
+    @PostMapping("itemRemoveCreate")
+    public String itemRemoveCreate(@RequestParam("itemName") String itemNameId, @RequestParam("itemType") String itemTypeId, @RequestParam("counterAgent") Long agentId, @RequestParam("count") String count, @RequestParam("price") String price, @RequestParam("date") String date) {
+        ItemRemove itemRemove = new ItemRemove();
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateAdd = LocalDate.parse(date, formatter);
+        itemRemove.setCount(Long.valueOf(count));
+        itemRemove.setCounterAgent(counterAgentService.findById(agentId));
+        itemRemove.setPrice(new BigDecimal(price));
+        itemRemove.setItemName(itemNameService.findById(Long.valueOf(itemNameId)));
+        itemRemove.setItemType(itemTypeService.findById(Long.valueOf(itemTypeId)));
+        itemRemove.setDate(dateAdd);
+        itemRemoveService.save(itemRemove, Long.valueOf(itemTypeId));
+        return "redirect:/removes";
+    }
+
 }

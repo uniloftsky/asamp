@@ -1,6 +1,7 @@
 package uniloftsky.springframework.asamp.services;
 
 import org.springframework.stereotype.Service;
+import uniloftsky.springframework.asamp.model.Item;
 import uniloftsky.springframework.asamp.model.ItemRemove;
 import uniloftsky.springframework.asamp.services.repositories.ItemRemoveRepository;
 
@@ -12,9 +13,13 @@ import java.util.Set;
 public class ItemRemoveServiceImpl implements ItemRemoveService {
 
     private final ItemRemoveRepository itemRemoveRepository;
+    private final ItemService itemService;
+    private final ItemTypeService itemTypeService;
 
-    public ItemRemoveServiceImpl(ItemRemoveRepository itemRemoveRepository) {
+    public ItemRemoveServiceImpl(ItemRemoveRepository itemRemoveRepository, ItemService itemService, ItemTypeService itemTypeService) {
         this.itemRemoveRepository = itemRemoveRepository;
+        this.itemService = itemService;
+        this.itemTypeService = itemTypeService;
     }
 
     @Override
@@ -36,6 +41,14 @@ public class ItemRemoveServiceImpl implements ItemRemoveService {
     @Override
     public void delete(ItemRemove itemRemove) {
         itemRemoveRepository.delete(itemRemove);
+    }
+
+    @Override
+    public ItemRemove save(ItemRemove itemRemove, Long itemTypeId) {
+        Item foundItem = itemService.findByItemType_TypeName(itemTypeService.findById(itemTypeId).getTypeName());
+        foundItem.setCount(foundItem.getCount() - itemRemove.getCount());
+        itemService.save(foundItem);
+        return itemRemoveRepository.save(itemRemove);
     }
 
     @Override

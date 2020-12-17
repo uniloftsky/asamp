@@ -16,15 +16,15 @@
 </head>
 <body>
 <dialog id="create-dialog" class="mdl-dialog" style="width: 400px;">
-    <form id="editItemForm" th:action="@{/editItemAdd}" method="post" th:object="${itemAdd}">
-        <h4 class="mdl-dialog__title" style="font-size: 1rem; text-align: center;">Редагування операції прибуття</h4>
+    <form id="editItemForm" th:action="@{/editItemRemove}" method="post" th:object="${itemRemove}">
+        <h4 class="mdl-dialog__title" style="font-size: 1rem; text-align: center;">Редагування операції відпускання</h4>
         <div class="mdl-dialog__content">
             <input type="hidden" th:field="*{id}">
             <input type="hidden" th:field="*{count}">
             <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
                 <select id="itemNameSelect" name="itemName" class="mdl-selectfield__select" th:field="*{itemName.id}">
                     <option th:each="itemName : ${itemNames}" th:value="${itemName.id}" th:text="${itemName.itemName}"
-                            th:selected="${itemName.id.equals(itemAdd.itemName.id)}">
+                            th:selected="${itemName.id.equals(itemRemove.itemName.id)}">
                         option 1
                     </option>
                 </select>
@@ -33,7 +33,7 @@
             <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
                 <select id="myselect" name="itemType" class="mdl-selectfield__select">
                     <option th:each="itemType : ${itemTypes}" th:value="${itemType.id}" th:text="${itemType.typeName}"
-                            th:selected="${itemType.id.equals(itemAdd.itemType.id)}">
+                            th:selected="${itemType.id.equals(itemRemove.itemType.id)}">
                         option 1
                     </option>
                 </select>
@@ -42,7 +42,7 @@
             <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
                 <select id="counterAgentSelect" name="counterAgent" class="mdl-selectfield__select">
                     <option th:each="agent : ${agents}" th:value="${agent.id}" th:text="${agent.firstName + ' ' + agent.lastName}"
-                            th:selected="${agent.id.equals(itemAdd.counterAgent.id)}">
+                            th:selected="${agent.id.equals(itemRemove.counterAgent.id)}">
                         option 1
                     </option>
                 </select>
@@ -60,7 +60,7 @@
         </div>
         <div class="mdl-dialog__actions">
             <button type="submit" class="mdl-button" form="editItemForm">Зберегти</button>
-            <button type="button" class="mdl-button close" th:href="@{/adds}">Назад</button>
+            <button type="button" class="mdl-button close" th:href="@{/removes}">Назад</button>
         </div>
     </form>
 </dialog>
@@ -71,7 +71,7 @@
     }
     dialog.showModal();
     dialog.querySelector('.close').addEventListener('click', function () {
-        window.location.href = 'adds';
+        window.location.href = 'removes';
     });
 </script>
 <script src="../../static/resources/polyfills/dialog/dialog-polyfill.js"

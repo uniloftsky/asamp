@@ -4,4 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import uniloftsky.springframework.asamp.model.Item;
 
 public interface ItemRepository extends CrudRepository<Item, Long> {
+
+    Item findByItemType_TypeName(String itemType);
+
 }
