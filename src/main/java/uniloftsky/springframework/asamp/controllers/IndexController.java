@@ -216,7 +216,7 @@ public class IndexController {
     }
 
     @PostMapping("itemRemoveCreate")
-    public String itemRemoveCreate(@RequestParam("itemName") String itemNameId, @RequestParam("itemType") String itemTypeId, @RequestParam("counterAgent") Long agentId, @RequestParam("count") String count, @RequestParam("price") String price, @RequestParam("date") String date) {
+    public String itemRemoveCreate(@RequestParam("itemName") String itemNameId, @RequestParam("itemType") String itemTypeId, @RequestParam("counterAgent") Long agentId, @RequestParam("count") String count, @RequestParam("price") String price, @RequestParam("date") String date, Model model) {
         ItemRemove itemRemove = new ItemRemove();
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateAdd = LocalDate.parse(date, formatter);
@@ -226,8 +226,15 @@ public class IndexController {
         itemRemove.setItemName(itemNameService.findById(Long.valueOf(itemNameId)));
         itemRemove.setItemType(itemTypeService.findById(Long.valueOf(itemTypeId)));
         itemRemove.setDate(dateAdd);
-        itemRemoveService.save(itemRemove, Long.valueOf(itemTypeId));
-        return "redirect:/removes";
+        if (itemRemoveService.save(itemRemove, Long.valueOf(itemTypeId)) == null) {
+            model.addAttribute("factCount", itemService.findByItemType_TypeName(itemTypeService.findById(Long.valueOf(itemTypeId)).getTypeName()).getCount());
+            model.addAttribute("removeCount", count);
+            return "admin-panel/not-enough-items";
+        } else {
+            itemRemoveService.save(itemRemove, Long.valueOf(itemTypeId));
+            return "redirect:/removes";
+
+        }
     }
 
 }

@@ -46,9 +46,12 @@ public class ItemRemoveServiceImpl implements ItemRemoveService {
     @Override
     public ItemRemove save(ItemRemove itemRemove, Long itemTypeId) {
         Item foundItem = itemService.findByItemType_TypeName(itemTypeService.findById(itemTypeId).getTypeName());
-        foundItem.setCount(foundItem.getCount() - itemRemove.getCount());
-        itemService.save(foundItem);
-        return itemRemoveRepository.save(itemRemove);
+        if ((foundItem.getCount() - itemRemove.getCount()) >= 0) {
+            foundItem.setCount(foundItem.getCount() - itemRemove.getCount());
+            itemService.save(foundItem);
+            return itemRemoveRepository.save(itemRemove);
+        }
+        return null;
     }
 
     @Override
