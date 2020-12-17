@@ -42,7 +42,8 @@
             </div>
             <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
                 <select id="counterAgentSelect" name="counterAgent" class="mdl-selectfield__select">
-                    <option th:each="agent : ${agents}" th:value="${agent.id}" th:text="${agent.firstName + ' ' + agent.lastName}"
+                    <option th:each="agent : ${agents}" th:value="${agent.id}"
+                            th:text="${agent.firstName + ' ' + agent.lastName}"
                             th:selected="${agent.id.equals(itemAdd.counterAgent.id)}">
                         option 1
                     </option>

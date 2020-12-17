@@ -7,36 +7,62 @@
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" type="text/css" href="../../static/resources/polyfills/dialog/dialog-polyfill.css" th:href="@{/resources/polyfills/dialog/dialog-polyfill.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/resources/polyfills/dialog/dialog-polyfill.css"
+          th:href="@{/resources/polyfills/dialog/dialog-polyfill.css}">
     <link href="../../static/resources/css/styles.css" th:href="@{/resources/css/styles.css}"
           rel="stylesheet" type="text/css">
     <link rel="shortcut icon" href="resources/img/favicon.png" th:href="@{/resources/img/favicon.png}" type="img/png">
 </head>
 <body>
-<dialog id="create-dialog" class="mdl-dialog">
+<dialog id="create-dialog" class="mdl-dialog" style="width: 375px;">
     <form th:action="@{/editAgent}" method="post" th:object="${agent}">
-        <h4 class="mdl-dialog__title" style="font-size: 1rem; text-align: center;">Редагування контрагента</h4>
-        <div class="mdl-dialog__content">
+        <h4 class="mdl-dialog__title" style="font-size: 1rem; text-align: center; padding-top: 0;">Редагування контрагента</h4>
+        <div class="mdl-dialog__content" style="padding-bottom: 0;">
             <input type="hidden" th:field="*{id}">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="firstName" id="sample1" th:field="*{firstName}">
-                <label class="mdl-textfield__label" for="sample1">Ім'я</label>
+                <input class="mdl-textfield__input" type="text" name="firstName" id="sample1" th:field="*{firstName}" th:errorclass="input-error">
+                <label th:class="${#fields.hasErrors('firstName') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="sample1">Ім'я</label>
+            </div>
+            <div th:if="${#fields.hasErrors('firstName')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                <ul style="list-style: none;">
+                    <li th:each="err : ${#fields.errors('firstName')}" th:text="'- ' + ${err}"/>
+                </ul>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="lastName" id="sample2" th:field="*{lastName}">
-                <label class="mdl-textfield__label" for="sample2">Прізвище</label>
+                <input class="mdl-textfield__input" type="text" name="lastName" id="sample2" th:field="*{lastName}" th:errorclass="input-error">
+                <label th:class="${#fields.hasErrors('lastName') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="sample2">Прізвище</label>
+            </div>
+            <div th:if="${#fields.hasErrors('lastName')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                <ul style="list-style: none;">
+                    <li th:each="err : ${#fields.errors('lastName')}" th:text="'- ' + ${err}"/>
+                </ul>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="middleName" id="sample3" th:field="*{middleName}">
-                <label class="mdl-textfield__label" for="sample3">По батькові</label>
+                <input class="mdl-textfield__input" type="text" name="middleName" id="sample3" th:field="*{middleName}" th:errorclass="input-error">
+                <label th:class="${#fields.hasErrors('middleName') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="sample3">По батькові</label>
+            </div>
+            <div th:if="${#fields.hasErrors('middleName')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                <ul style="list-style: none;">
+                    <li th:each="err : ${#fields.errors('middleName')}"  th:text="'- ' + ${err}"/>
+                </ul>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="phone" id="phone" th:field="*{phone}">
-                <label class="mdl-textfield__label" for="phone">Телефон</label>
+                <input class="mdl-textfield__input" type="text" name="phone" id="phone" th:field="*{phone}" th:errorclass="input-error">
+                <label th:class="${#fields.hasErrors('phone') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="phone">Телефон</label>
+            </div>
+            <div th:if="${#fields.hasErrors('phone')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                <ul style="list-style: none;">
+                    <li th:each="err : ${#fields.errors('phone')}" th:text="'- ' + ${err}"/>
+                </ul>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" name="email" id="sample5" th:field="*{email}">
-                <label class="mdl-textfield__label" for="sample5">Електронна пошта</label>
+                <input class="mdl-textfield__input" type="text" name="email" id="sample5" th:field="*{email}" th:errorclass="input-error">
+                <label th:class="${#fields.hasErrors('email') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="sample5">Електронна пошта</label>
+            </div>
+            <div th:if="${#fields.hasErrors('email')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                <ul style="list-style: none;">
+                    <li th:each="err : ${#fields.errors('email')}" th:text="'- ' + ${err}"/>
+                </ul>
             </div>
         </div>
         <div class="mdl-dialog__actions">
@@ -48,15 +74,16 @@
 </dialog>
 <script>
     var dialog = document.querySelector('#create-dialog');
-    if (! dialog.showModal) {
+    if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
     }
     dialog.showModal();
-    dialog.querySelector('.close').addEventListener('click', function() {
+    dialog.querySelector('.close').addEventListener('click', function () {
         window.location.href = 'index';
     });
 </script>
-<script src="../../static/resources/polyfills/dialog/dialog-polyfill.js" th:src="@{/resources/polyfills/dialog/dialog-polyfill.js}"></script>
+<script src="../../static/resources/polyfills/dialog/dialog-polyfill.js"
+        th:src="@{/resources/polyfills/dialog/dialog-polyfill.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" type="text/javascript"></script>
 <script th:src="@{/resources/js/jquery.maskedinput.min.js}"
         src="../../static/resources/js/jquery.maskedinput.min.js"></script>

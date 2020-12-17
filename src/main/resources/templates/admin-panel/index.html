@@ -45,30 +45,55 @@
         <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
             <div class="page-content">
                 <div class="wrap">
-                    <dialog id="agent-create-dialog" class="mdl-dialog">
-                        <form th:action="@{/agentAdd}" method="post">
-                            <h4 class="mdl-dialog__title" style="font-size: 1.25rem; text-align: center;">Додавання
+                    <dialog id="agent-create-dialog" class="mdl-dialog" style="width: 400px;">
+                        <form th:action="@{/agentAdd}" method="post" th:object="${agent}">
+                            <h4 class="mdl-dialog__title" style="font-size: 1.25rem; text-align: center; padding-top: 0;">Додавання
                                 контрагента</h4>
-                            <div class="mdl-dialog__content">
+                            <div class="mdl-dialog__content" style="padding-bottom: 0;">
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="firstName" id="sample1">
-                                    <label class="mdl-textfield__label" for="sample1">Ім'я</label>
+                                    <input class="mdl-textfield__input" type="text" name="firstName" id="sample1" th:field="*{firstName}" th:errorclass="input-error">
+                                    <label th:class="${#fields.hasErrors('firstName') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="sample1">Ім'я</label>
+                                </div>
+                                <div th:if="${#fields.hasErrors('firstName')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                                    <ul style="list-style: none;">
+                                        <li th:each="err : ${#fields.errors('firstName')}" th:text="'- ' + ${err}"/>
+                                    </ul>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="lastName" id="sample2">
-                                    <label class="mdl-textfield__label" for="sample2">Прізвище</label>
+                                    <input class="mdl-textfield__input" type="text" name="lastName" id="sample2" th:field="*{lastName}" th:errorclass="input-error">
+                                    <label th:class="${#fields.hasErrors('lastName') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="sample2">Прізвище</label>
+                                </div>
+                                <div th:if="${#fields.hasErrors('lastName')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                                    <ul style="list-style: none;">
+                                        <li th:each="err : ${#fields.errors('lastName')}" th:text="'- ' + ${err}"/>
+                                    </ul>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="middleName" id="sample3">
-                                    <label class="mdl-textfield__label" for="sample3">По батькові</label>
+                                    <input class="mdl-textfield__input" type="text" name="middleName" id="sample3" th:field="*{middleName}" th:errorclass="input-error">
+                                    <label th:class="${#fields.hasErrors('middleName') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="sample3">По батькові</label>
+                                </div>
+                                <div th:if="${#fields.hasErrors('middleName')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                                    <ul style="list-style: none;">
+                                        <li th:each="err : ${#fields.errors('middleName')}" th:text="'- ' + ${err}"/>
+                                    </ul>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="phone" id="phone">
-                                    <label class="mdl-textfield__label" for="phone">Телефон</label>
+                                    <input class="mdl-textfield__input" type="text" name="phone" id="phone" th:field="*{phone}" th:errorclass="input-error">
+                                    <label th:class="${#fields.hasErrors('phone') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="phone">Телефон</label>
+                                </div>
+                                <div th:if="${#fields.hasErrors('phone')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                                    <ul style="list-style: none;">
+                                        <li th:each="err : ${#fields.errors('phone')}" th:text="'- ' + ${err}"/>
+                                    </ul>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" name="email" id="sample5">
-                                    <label class="mdl-textfield__label" for="sample5">Електронна пошта</label>
+                                    <input class="mdl-textfield__input" type="text" name="email" id="sample5" th:field="*{email}" th:errorclass="input-error">
+                                    <label th:class="${#fields.hasErrors('email') ? 'mdl-textfield\_\_label label-error' : 'mdl-textfield\_\_label'}" for="sample5">Електронна пошта</label>
+                                </div>
+                                <div th:if="${#fields.hasErrors('email')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                                    <ul style="list-style: none;">
+                                        <li th:each="err : ${#fields.errors('email')}" th:text="'- ' + ${err}"/>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="mdl-dialog__actions">

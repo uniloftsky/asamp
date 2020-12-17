@@ -2,6 +2,7 @@ package uniloftsky.springframework.asamp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,7 @@ import uniloftsky.springframework.asamp.comparators.*;
 import uniloftsky.springframework.asamp.model.*;
 import uniloftsky.springframework.asamp.services.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -39,7 +41,8 @@ public class IndexController {
     private DateTimeFormatter formatter;
 
     @GetMapping({"", "/index", "index"})
-    public String getIndexPage() {
+    public String getIndexPage(Model model) {
+        model.addAttribute("agent", new CounterAgent());
         return "admin-panel/index";
     }
 
@@ -111,7 +114,10 @@ public class IndexController {
     }
 
     @PostMapping("editItem")
-    public String editItemProcess(@ModelAttribute("item") Item item) {
+    public String editItemProcess(@Valid @ModelAttribute("item") Item item, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "admin-panel/edit-item";
+        }
         itemService.save(item);
         return "redirect:/items";
     }
@@ -123,7 +129,7 @@ public class IndexController {
     }
 
     @ModelAttribute("agents")
-    public Set<CounterAgent> getAgentsList() {
+    public Set<CounterAgent> getAgentsList(Model model) {
         Comparator<CounterAgent> comparator = new CounterAgentAscComparatorById();
         TreeSet<CounterAgent> agents = new TreeSet<>(comparator);
         counterAgentService.findAll().iterator().forEachRemaining(agents::add);
@@ -131,13 +137,10 @@ public class IndexController {
     }
 
     @PostMapping("agentAdd")
-    public String agentAdd(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestParam("middleName") String middleName, @RequestParam("phone") String phone, @RequestParam("email") String email, Model model) {
-        CounterAgent counterAgent = new CounterAgent();
-        counterAgent.setFirstName(firstName);
-        counterAgent.setLastName(lastName);
-        counterAgent.setMiddleName(middleName);
-        counterAgent.setPhone(phone);
-        counterAgent.setEmail(email);
+    public String agentAdd(@Valid @ModelAttribute("agent") CounterAgent counterAgent, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()) {
+            return "admin-panel/index";
+        }
         counterAgentService.save(counterAgent);
         return "redirect:/index";
     }
@@ -156,7 +159,10 @@ public class IndexController {
     }
 
     @PostMapping("editAgent")
-    public String editAgentProcess(@ModelAttribute CounterAgent agent) {
+    public String editAgentProcess(@Valid @ModelAttribute("agent") CounterAgent agent, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "admin-panel/edit-agent";
+        }
         counterAgentService.save(agent);
         return "redirect:/index";
     }
