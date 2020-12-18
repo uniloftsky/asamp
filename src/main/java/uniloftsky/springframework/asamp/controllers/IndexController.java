@@ -12,7 +12,6 @@ import uniloftsky.springframework.asamp.model.*;
 import uniloftsky.springframework.asamp.services.*;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -52,12 +51,14 @@ public class IndexController {
     }
 
     @GetMapping({"adds", "/adds"})
-    public String getAddsPage() {
+    public String getAddsPage(Model model) {
+        model.addAttribute("itemAdd", new ItemAdd());
         return "admin-panel/adds-page";
     }
 
     @GetMapping({"removes", "/removes"})
-    public String getRemovePage() {
+    public String getRemovePage(Model model) {
+        model.addAttribute("itemRemove", new ItemRemove());
         return "admin-panel/removes-page";
     }
 
@@ -183,7 +184,10 @@ public class IndexController {
     }
 
     @PostMapping("editItemAdd")
-    public String editItemAddProcess(@ModelAttribute ItemAdd itemAdd, @RequestParam("dateField") String date) {
+    public String editItemAddProcess(@Valid @ModelAttribute("itemAdd") ItemAdd itemAdd, BindingResult bindingResult, @RequestParam("dateField") String date, Model model) {
+        if(bindingResult.hasErrors()) {
+            return "admin-panel/edit-itemAdd";
+        }
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateAdd = LocalDate.parse(date, formatter);
         itemAdd.setDate(dateAdd);
@@ -192,17 +196,14 @@ public class IndexController {
     }
 
     @PostMapping("itemAddCreate")
-    public String itemAddCreate(@RequestParam("itemName") String itemNameId, @RequestParam("itemType") String itemTypeId, @RequestParam("counterAgent") Long agentId, @RequestParam("count") String count, @RequestParam("price") String price, @RequestParam("date") String date) {
-        ItemAdd itemAdd = new ItemAdd();
+    public String itemAddCreate(@Valid @ModelAttribute("itemAdd") ItemAdd itemAdd, BindingResult bindingResult, @RequestParam("dateField") String date) {
+        if(bindingResult.hasErrors()) {
+            return "admin-panel/adds-page";
+        }
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateAdd = LocalDate.parse(date, formatter);
-        itemAdd.setCount(Long.valueOf(count));
-        itemAdd.setCounterAgent(counterAgentService.findById(agentId));
-        itemAdd.setPrice(new BigDecimal(price));
-        itemAdd.setItemName(itemNameService.findById(Long.valueOf(itemNameId)));
-        itemAdd.setItemType(itemTypeService.findById(Long.valueOf(itemTypeId)));
         itemAdd.setDate(dateAdd);
-        itemAddService.save(itemAdd, Long.valueOf(itemTypeId));
+        itemAddService.save(itemAdd, itemAdd.getItemType().getId());
         return "redirect:/adds";
     }
 
@@ -213,7 +214,10 @@ public class IndexController {
     }
 
     @PostMapping("editItemRemove")
-    public String editItemRemoveProcess(@ModelAttribute("itemRemove") ItemRemove itemRemove, @RequestParam("dateField") String date) {
+    public String editItemRemoveProcess(@Valid @ModelAttribute("itemRemove") ItemRemove itemRemove, BindingResult bindingResult, @RequestParam("dateField") String date) {
+        if(bindingResult.hasErrors()) {
+            return "admin-panel/edit-itemRemove";
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateAdd = LocalDate.parse(date, formatter);
         itemRemove.setDate(dateAdd);
@@ -222,22 +226,19 @@ public class IndexController {
     }
 
     @PostMapping("itemRemoveCreate")
-    public String itemRemoveCreate(@RequestParam("itemName") String itemNameId, @RequestParam("itemType") String itemTypeId, @RequestParam("counterAgent") Long agentId, @RequestParam("count") String count, @RequestParam("price") String price, @RequestParam("date") String date, Model model) {
-        ItemRemove itemRemove = new ItemRemove();
+    public String itemRemoveCreate(@Valid @ModelAttribute("itemRemove") ItemRemove itemRemove, BindingResult bindingResult, @RequestParam("dateField") String date, Model model) {
+        if(bindingResult.hasErrors()) {
+            return "admin-panel/removes-page";
+        }
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateAdd = LocalDate.parse(date, formatter);
-        itemRemove.setCount(Long.valueOf(count));
-        itemRemove.setCounterAgent(counterAgentService.findById(agentId));
-        itemRemove.setPrice(new BigDecimal(price));
-        itemRemove.setItemName(itemNameService.findById(Long.valueOf(itemNameId)));
-        itemRemove.setItemType(itemTypeService.findById(Long.valueOf(itemTypeId)));
         itemRemove.setDate(dateAdd);
-        if (itemRemoveService.save(itemRemove, Long.valueOf(itemTypeId)) == null) {
-            model.addAttribute("factCount", itemService.findByItemType_TypeName(itemTypeService.findById(Long.valueOf(itemTypeId)).getTypeName()).getCount());
-            model.addAttribute("removeCount", count);
+        if (itemRemoveService.save(itemRemove, itemRemove.getItemType().getId()) == null) {
+            model.addAttribute("factCount", itemService.findByItemType_TypeName(itemTypeService.findById(itemRemove.getItemType().getId()).getTypeName()).getCount());
+            model.addAttribute("removeCount", itemRemove.getCount());
             return "admin-panel/not-enough-items";
         } else {
-            itemRemoveService.save(itemRemove, Long.valueOf(itemTypeId));
+            itemRemoveService.save(itemRemove, itemRemove.getItemType().getId());
             return "redirect:/removes";
 
         }

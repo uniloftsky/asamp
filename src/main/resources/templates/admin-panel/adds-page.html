@@ -42,12 +42,12 @@
         </span>
     </div>
     <dialog id="item-add-create" class="mdl-dialog">
-        <form th:action="@{/itemAddCreate}" method="post">
+        <form th:action="@{/itemAddCreate}" method="post" th:object="${itemAdd}">
             <h4 class="mdl-dialog__title" style="font-size: 1rem; text-align: center;">Додавання операції
                 прибуття</h4>
             <div class="mdl-dialog__content">
                 <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                    <select id="itemNameSelect" name="itemName" class="mdl-selectfield__select">
+                    <select id="itemNameSelect" name="itemName" class="mdl-selectfield__select" th:field="*{itemName.id}">
                         <option th:each="itemName : ${itemNames}" th:value="${itemName.id}"
                                 th:text="${itemName.itemName}">
                             option 1
@@ -55,8 +55,13 @@
                     </select>
                     <label class="mdl-selectfield__label" for="itemNameSelect">Назва</label>
                 </div>
+                <div th:if="${#fields.hasErrors('itemName')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                    <ul style="list-style: none;">
+                        <li th:each="err : ${#fields.errors('itemName')}" th:text="'- ' + ${err}"/>
+                    </ul>
+                </div>
                 <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                    <select id="myselect" name="itemType" class="mdl-selectfield__select">
+                    <select id="myselect" name="itemType" class="mdl-selectfield__select" th:field="*{itemType.id}">
                         <option th:each="itemType : ${itemTypes}" th:value="${itemType.id}"
                                 th:text="${itemType.typeName}">
                             option 1
@@ -64,8 +69,13 @@
                     </select>
                     <label class="mdl-selectfield__label" for="myselect">Оберіть тип</label>
                 </div>
+                <div th:if="${#fields.hasErrors('itemType')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                    <ul style="list-style: none;">
+                        <li th:each="err : ${#fields.errors('itemType')}" th:text="'- ' + ${err}"/>
+                    </ul>
+                </div>
                 <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                    <select id="counterAgentSelect" name="counterAgent" class="mdl-selectfield__select">
+                    <select id="counterAgentSelect" name="counterAgent" class="mdl-selectfield__select" th:field="*{counterAgent.id}">
                         <option th:each="agent : ${agents}" th:value="${agent.id}"
                                 th:text="${agent.firstName + ' ' + agent.lastName}">
                             option 1
@@ -73,17 +83,37 @@
                     </select>
                     <label class="mdl-selectfield__label" for="counterAgentSelect">Оберіть контрагента</label>
                 </div>
+                <div th:if="${#fields.hasErrors('counterAgent')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                    <ul style="list-style: none;">
+                        <li th:each="err : ${#fields.errors('counterAgent')}" th:text="'- ' + ${err}"/>
+                    </ul>
+                </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="number" name="count" id="count">
+                    <input class="mdl-textfield__input" type="number" name="count" id="count" th:field="*{count}">
                     <label class="mdl-textfield__label" for="count">Кількість</label>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="number" name="price" id="price">
-                    <label class="mdl-textfield__label" for="price">Ціна</label>
+                <div th:if="${#fields.hasErrors('count')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                    <ul style="list-style: none;">
+                        <li th:each="err : ${#fields.errors('count')}" th:text="'- ' + ${err}"/>
+                    </ul>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="date" name="date" id="date" th:value="${currentDate}">
+                    <input class="mdl-textfield__input" type="number" name="price" id="price" th:field="*{price}">
+                    <label class="mdl-textfield__label" for="price">Ціна</label>
+                </div>
+                <div th:if="${#fields.hasErrors('price')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                    <ul style="list-style: none;">
+                        <li th:each="err : ${#fields.errors('price')}" th:text="'- ' + ${err}"/>
+                    </ul>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="date" name="dateField" id="date" th:value="${currentDate}">
                     <label class="mdl-textfield__label" for="date">Дата</label>
+                </div>
+                <div th:if="${#fields.hasErrors('date')}" class="error-block" style="text-align: left; padding: 0 0 0 .5em; margin-bottom: 1em;">
+                    <ul style="list-style: none;">
+                        <li th:each="err : ${#fields.errors('date')}" th:text="'- ' + ${err}"/>
+                    </ul>
                 </div>
             </div>
             <div class="mdl-dialog__actions">
