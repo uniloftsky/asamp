@@ -164,9 +164,15 @@
                          style="margin-top: -1.25em; z-index: 1; display: flex; justify-content: center;">
                         <button id="add-item-add"
                                 class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
-                                style="margin-bottom: 0; height: 35px; min-width: 35px; width: 35px;">
+                                style="margin-bottom: 0; height: 35px; min-width: 35px; width: 35px; margin-right: .1em">
                             <i class="material-icons" style="font-size: 20px;">add</i>
                         </button>
+                        <form th:action="@{/printItemRemoves}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+                                    style="margin-bottom: 0; height: 35px; min-width: 35px; width: 35px; background: #008975;">
+                                <i class="material-icons" style="font-size: 20px;">get_app</i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

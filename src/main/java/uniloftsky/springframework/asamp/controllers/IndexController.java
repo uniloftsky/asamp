@@ -12,7 +12,10 @@ import uniloftsky.springframework.asamp.model.*;
 import uniloftsky.springframework.asamp.services.*;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Set;
@@ -242,6 +245,30 @@ public class IndexController {
             return "redirect:/removes";
 
         }
+    }
+
+    @GetMapping("printItemAdds")
+    public String printItemAdds() throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy-hh-mm-ss");
+        File uploadPath = new File("reports");
+        if(!uploadPath.exists()) {
+            uploadPath.mkdir();
+        }
+        String fileName = uploadPath + "/itemAddsReport-" + LocalDateTime.now().format(formatter) + ".xlsx";
+        itemAddService.write(fileName);
+        return "admin-panel/success-print";
+    }
+
+    @GetMapping("printItemRemoves")
+    public String printItemRemoves() throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy-hh-mm-ss");
+        File uploadPath = new File("reports");
+        if(!uploadPath.exists()) {
+            uploadPath.mkdir();
+        }
+        String fileName = uploadPath + "/itemRemovesReport-" + LocalDateTime.now().format(formatter) + ".xlsx";
+        itemRemoveService.write(fileName);
+        return "admin-panel/success-print";
     }
 
 }
