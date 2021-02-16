@@ -71,6 +71,7 @@
                             <th>Кількість</th>
                             <th>Внутрішній діаметр</th>
                             <th>Зовнішній діаметр</th>
+                            <th>Артикул</th>
                             <th>Редагувати</th>
                             <th>Видалити</th>
                         </tr>
@@ -84,6 +85,7 @@
                             <td th:text="${item.count}">$2.90</td>
                             <td th:text="${item.inDiameter}">12</td>
                             <td th:text="${item.outDiameter}">32</td>
+                            <td th:text="${item.art}">000000</td>
                             <td><a th:href="@{/editItem(id=${item.id})}">Редагувати</a></td>
                             <td><a th:href="@{/deleteItem(id=${item.id})}">Видалити</a></td>
                         </tr>

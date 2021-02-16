@@ -39,4 +39,6 @@ public class Item extends BaseEntity {
 
     private String img;
 
+    private Integer art;
+
 }

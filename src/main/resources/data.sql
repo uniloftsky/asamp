@@ -11,12 +11,12 @@ INSERT INTO ITEM_TYPE (type_name) VALUES ('Радіальний дворядни
 INSERT INTO ITEM_TYPE (type_name) VALUES ('Упорно-кульковий')
 INSERT INTO ITEM_TYPE (type_name) VALUES ('Закріплювальний кульковий')
 
-INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (1, 20, 40, 1, 1)
-INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (5, 20, 40, 1, 2)
-INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (12, 12, 28, 1, 3)
-INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (1, 20, 40, 1, 4)
-INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (2, 17, 35, 1, 5)
-INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id) VALUES (1, 20, 40, 1, 6)
+INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id, art) VALUES (1, 20, 40, 1, 1, 00024188)
+INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id, art) VALUES (5, 20, 40, 1, 2, 00024189)
+INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id, art) VALUES (12, 12, 28, 1, 3, 00024190)
+INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id, art) VALUES (1, 20, 40, 1, 4, 00024191)
+INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id, art) VALUES (2, 17, 35, 1, 5, 00024192)
+INSERT INTO ITEM (count, in_diameter, out_diameter, item_name_id, item_type_id, art) VALUES (1, 20, 40, 1, 6, 00024193)
 
 INSERT INTO ITEM_ADD (count, date, price, counter_agent_id, item_name_id, item_type_id) VALUES (2, '2020-12-13', 56, 1, 1, 1)
 INSERT INTO ITEM_ADD (count, date, price, counter_agent_id, item_name_id, item_type_id) VALUES (12, '2020-11-14', 210, 2, 1, 2)
